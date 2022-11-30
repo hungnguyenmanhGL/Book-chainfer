@@ -1,0 +1,22 @@
+<app-navbar></app-navbar>
+<div class="container-fluid" style="height: 90%">
+    <div class="row" style="height: 100%">
+        <div class="col-8">
+            <pdf-viewer 
+                [src]="pdfSrc"
+                [render-text]="true"
+                [original-size]="false"
+                style="width: 100%; height: 100%">
+            </pdf-viewer>
+        </div>
+        <div class="col-4">
+            <ul class="list-group">
+                <li class="list-group-item"><b>Title:</b><br>{{bookInfo.name}}</li>
+                <li class="list-group-item"><b>Author:</b><br>{{bookInfo.authorName}}</li>
+                <li class="list-group-item"><b>Author address:</b><br>{{bookInfo.userAddress}}</li>
+              </ul>
+        </div>
+    </div>
+</div>
+
+

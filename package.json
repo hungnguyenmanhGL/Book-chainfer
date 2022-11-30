@@ -1,0 +1,33 @@
+{
+  "name": "pet-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.3.0"
+  },
+  "dependencies": {
+    "@metamask/eth-sig-util": "^4.0.1",
+    "@openzeppelin/contracts": "^4.6.0",
+    "@sweetalert2/ngx-sweetalert2": "^11.0.0",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "ethereumjs-util": "^7.1.5",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.21.3",
+    "sweetalert2": "^11.4.24",
+    "web3": "^1.8.0"
+  }
+}

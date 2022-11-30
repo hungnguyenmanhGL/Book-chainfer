@@ -1,0 +1,72 @@
+<div class="navbar">
+    <a (click)=login() id="login-btn">Login with Metamask</a>
+	<a (click)="loginPopupOnClick()" id="register-btn">Register</a>
+</div>
+
+<div class="section banner-full">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 justify-content-xs-center">
+				<div class="image" data-aos="flip-right">
+					<!-- <a href="https://www.flaticon.com/free-icons/book" title="book icons">Book icons created by Freepik - Flaticon</a> -->
+					<img class="img-fluid" src="assets/images/books.png" alt="Books">
+				</div>
+			</div>
+			<div class="col-lg-8 align-self-center">
+				<div class="block">
+					<h1>Introducing BOOK-CHAINFER
+						<br>Publishing & Sharing Right Transfer 
+            <br>For Books & Documents</h1>
+					<p>
+						The decentralized app that utilizes blockchain
+						<br>to verify, secure publishing right transfer 
+						<br>and allow fast, convenient distribution.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="overlay" id="black-bg"></div>
+<div class="login-popup" id="login-popup">
+  <h3>Please login to continue</h3>
+  <button type="button" id="close-btn" (click)=closePopup()>X</button>
+  <button type="button" class="popup-btn">Login via Metamask</button>
+  <button type="button" class="popup-btn" (click)=linkToMetamask()>Don't have Metamask?</button>
+</div>
+
+<form id="register-popup">
+	<button type="button" id="close-btn" (click)=closePopup()>X</button>
+
+	<h3 style="text-align: center;">Register with Metamask</h3> 
+	<label class="form-label" for="metamask-address"><b>Metamask Address </b></label>
+	<input class="form-control" type="text" placeholder="Enter Metamask Addess" id="metamask-input"
+	[(ngModel)]="registerInfo.address" #address="ngModel" name="address">
+	<a (click)="linkToMetamask()"style="top: -10px ;margin-bottom: 10px; cursor: pointer; color: orange; text-decoration:underline">
+		Do not have Metamask? Install now!</a><br>
+	
+	<label class="form-label" for="fullname"><b>Full Name </b></label>
+	<input class="form-control" type="text" placeholder="Enter Full Name" id="fullname-input"
+	[(ngModel)]="registerInfo.fullName" #fullName="ngModel" name="fullName">
+
+	<label class="form-label" for="email"><b>Email </b></label>
+	<input class="form-control" type="text" placeholder="Enter Email" id="email-input"
+	[(ngModel)]="registerInfo.email" #email="ngModel" name="email">
+
+	<button class="btn btn-primary" (click)="register()" type="submit" id="register-btn">Confirm</button>
+</form>
+
+<footer class="footer-classic">
+  <ul class="footer-links list-inline">
+    <li class="list-inline-item">
+      <a href="https://github.com/hungnguyenmanhGL/Book-Chainfer">Download</a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://github.com/hungnguyenmanhGL/Book-Chainfer">Developer</a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://github.com/hungnguyenmanhGL/Book-Chainfer">Support</a>
+    </li>
+  </ul>
+</footer>

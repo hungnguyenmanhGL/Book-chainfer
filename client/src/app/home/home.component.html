@@ -1,0 +1,146 @@
+<app-navbar *ngIf="loaded"></app-navbar>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div *ngIf="loaded" class="container-fluid">
+  <div class="row">
+    <div class="col-8">
+      <h1>Your uploaded books</h1>
+      <div class="main-box clearfix">
+        <div class="table-responsive">
+          <table class="table user-list">
+            <thead>
+              <tr>
+                <th class="text-center"><span>Name</span></th>
+                <th class="text-center"><span>Author</span></th>
+                <th class="text-center"><span>Publishing right</span></th>
+                <th class="text-center"><span>Reading right</span></th>
+                <th class="text-center"><span>Action</span></th>
+                <th class="text-center"><span>Market Info</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let book of userBooks">
+                <td>
+                  <span class="user-link">{{book.name}}</span>
+                </td>
+                <td>
+                  <span class="user-link">{{book.authorName}}</span>
+                </td>
+                <td class="text-center" style="width: 10%;">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authorizeModal" 
+                    (click)="updateAuthorizationModalInfo(1, book)">Authorize</button>
+                </td>
+                <td class="text-center" style="width: 10%;">
+                  <span class="label label-default">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#authorizeModal"
+                    (click)="updateAuthorizationModalInfo(2, book)">Authorize</button>
+                  </span>
+                </td>
+                <td class="text-center" style="width: 10%;">
+                  <a [routerLink]=" ['/view/', book.id]">
+                    <span class="label label-default"><button class="btn btn-primary">Read</button></span>
+                  </a>
+                </td>
+                <td class="text-center" style="width: 10%;">
+                  <span class="label label-default">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#marketModal"
+                    (click)="updateMarketModalInfo(book)">Update</button>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="pagination pull-right">
+          <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+          <li><a href="#">1</a></li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-4">
+      <h1>Upload book</h1>
+      <div class="white-card">
+        <form [formGroup]="bookModel" (ngSubmit)="uploadBook()" id="upload-form" enctype="multipart/form-data">
+          <label class="form-label" for="file-name">Enter file name</label>
+          <input type="text" class="form-control" id="upload-name" formControlName="name">
+          <label class="form-label" for="author-name">Enter author(s)</label>
+          <input type="text" class="form-control" id="upload-author" formControlName="author">
+          <label class="form-label" for="customFile">Upload pdf file</label>
+          <input #book type="file" class="form-control" id="customFile"
+          (input)="fileChosen($event)"/>
+          <button class="btn btn-primary" type="submit">Confirm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="authorizeModal" tabindex="-1" role="dialog" 
+    aria-labelledby="authorizeModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title" id="extendModalLabel">
+					Authorize token
+				</h1>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="authorizeModel" (ngSubmit)="authorizeToken()" id="authorize">
+					<div class="form-group">
+						<label for="deletePassword">Recipient Address</label>
+						<input type="text" class="form-control" name="walletAddress" id="walletAddress" formControlName="toAddress">
+            <label for="deletePassword">Token Type</label>
+						<input type="text" class="form-control" name="tokenType" id="tokenType" formControlName="tokenType" readonly>
+            <label for="deletePassword">Book Title</label>
+						<input type="text" class="form-control" name="bookTitle" id="bookTitle" formControlName="bookTitle" readonly>
+            <label for="deletePassword">Author Name</label>
+						<input type="text" class="form-control" name="authorName" id="authorName" formControlName="authorName" readonly>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" form="authorize" data-dismiss="modal">
+          Confirm
+        </button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="marketModal" tabindex="-1" role="dialog" 
+    aria-labelledby="marketModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title" id="extendModalLabel">
+					Authorize token
+				</h1>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="marketModel" (ngSubmit)="updateMarketInfo()" id="market">
+					<div class="form-group">
+						<label for="deletePassword">Token ID</label>
+						<input type="text" class="form-control" name="tokenID" id="tokenID" formControlName="tokenID" readonly>
+            <label for="deletePassword">Book Title</label>
+						<input type="text" class="form-control" name="bookTitle" id="bookTitle" formControlName="bookTitle" readonly>
+            <label for="deletePassword">Author</label>
+						<input type="text" class="form-control" name="author" id="author" formControlName="author" readonly>
+            <label for="deletePassword">Market price (in PAGE Token)</label>
+						<input type="text" class="form-control" name="marketPrice" id="marketPrice" formControlName="marketPrice">
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" form="market" data-dismiss="modal">
+          Confirm
+        </button>
+			</div>
+		</div>
+	</div>
+</div>
