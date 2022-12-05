@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit {
       bookTitle: bookInfo.name, 
       authorName: bookInfo.authorName, 
       toAddress: this.authorizeModel.get('toAddress')?.value,
-      bookId: bookInfo.id
+      bookId: bookInfo.tokenId
     })
   }
 
